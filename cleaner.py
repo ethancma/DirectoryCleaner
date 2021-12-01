@@ -1,6 +1,6 @@
 import os
 import glob
-
+import shutil
 
 class DirectoryCleaner(object):
     
@@ -27,6 +27,14 @@ class DirectoryCleaner(object):
             except:
                 print(f"Folder name with \'{i}\' already exists.")
 
-a = DirectoryCleaner()
-a.file_names()
-a.create_dir()
+
+    def move_files(self, ext: str):
+        """
+        Moves files into new directories specified by file extension.
+        """
+        for i in glob.glob('*.' + ext):
+            try:
+                shutil.move(i, ext)
+            except:
+                print(f"Folder \'{ext}\' has not been created yet.")
+                break
