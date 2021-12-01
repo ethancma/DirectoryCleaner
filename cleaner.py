@@ -1,20 +1,32 @@
 import os
 import glob
 
-file_name = 'my_file.txt'
-file_name2 = 'my_file.py'
 
-exts = set()
-_, ext = (os.path.splitext(file_name))
-exts.add(ext)
-_, ext = (os.path.splitext(file_name2))
-exts.add(ext)
-
-for ext in exts:
-    print(ext)
+class DirectoryCleaner(object):
+    
+    def __init__(self):
+        self.names = list()
 
 
-def get_extensions() -> set():
-    files = 
+    def file_names(self) -> set():
+        """
+        Adds all file extensions in current path excluding directories to self.names.
+        """
+        exts = {os.path.splitext(i)[1] for i in os.listdir() if os.path.isfile(i)}
+        for i in exts:
+            self.names.append(i[1:])
 
-print(get_extensions())
+    
+    def create_dir(self):
+        """
+        Creates new directories with file extension names given in self.names.
+        """
+        for i in self.names:
+            try:
+                os.makedirs(i)
+            except:
+                print(f"Folder name with \'{i}\' already exists.")
+
+a = DirectoryCleaner()
+a.file_names()
+a.create_dir()
