@@ -2,21 +2,21 @@ import os
 import glob
 import shutil
 
+
 class DirectoryCleaner(object):
-    
+
     def __init__(self):
         self.names = list()
 
-
-    def file_names(self) -> set():
+    def file_names(self):
         """
-        Adds all file extensions in current path excluding directories to self.names.
+        Adds all file extensions in current path to self.names.
         """
-        exts = {os.path.splitext(i)[1] for i in os.listdir() if os.path.isfile(i)}
+        files = os.listdir()
+        exts = {os.path.splitext(i)[1] for i in files if os.path.isfile(i)}
         for i in exts:
             self.names.append(i[1:])
 
-    
     def create_dir(self):
         """
         Creates new directories with file extension names given in self.names.
@@ -24,9 +24,8 @@ class DirectoryCleaner(object):
         for i in self.names:
             try:
                 os.makedirs(i)
-            except:
+            except Exception:
                 print(f"Folder name with \'{i}\' already exists.")
-
 
     def move_files(self, ext: str):
         """
@@ -35,6 +34,6 @@ class DirectoryCleaner(object):
         for i in glob.glob('*.' + ext):
             try:
                 shutil.move(i, ext)
-            except:
+            except Exception:
                 print(f"Folder \'{ext}\' has not been created yet.")
                 break
