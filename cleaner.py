@@ -24,6 +24,7 @@ class DirectoryCleaner(object):
         for i in self.names:
             try:
                 os.makedirs(i)
+                print(f"Created {i} directory.")
             except Exception:
                 print(f"Folder name with \'{i}\' already exists.")
 
@@ -33,7 +34,12 @@ class DirectoryCleaner(object):
         """
         for i in glob.glob('*.' + ext):
             try:
-                shutil.move(i, ext)
+                if (os.path.isdir(os.getcwd() + f'/{ext}')):
+                    shutil.move(i, ext)
             except Exception:
                 print(f"Folder \'{ext}\' has not been created yet.")
                 break
+
+
+a = DirectoryCleaner()
+a.file_names()
